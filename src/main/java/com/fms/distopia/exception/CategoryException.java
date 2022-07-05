@@ -1,14 +1,14 @@
 package com.fms.distopia.exception;
 
 
-public class CityException extends RuntimeException {
+public class CategoryException extends RuntimeException {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public CityException(String message) {
+	public CategoryException(String message) {
 		super(message);
 	}
 
