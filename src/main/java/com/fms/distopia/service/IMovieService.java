@@ -1,5 +1,5 @@
 package com.fms.distopia.service;
 
-public interface CityService {
+public interface IMovieService {
 
 }

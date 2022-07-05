@@ -17,26 +17,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data @AllArgsConstructor @NoArgsConstructor
-public class City implements Serializable {
-
+@Data @NoArgsConstructor @AllArgsConstructor
+public class Category implements Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@NotNull
-	@Size(min = 3)
+	@Size(min = 2)
 	private String name;
 	
-	@NotNull
-	@Size(min = 5)
-	private Integer zip;
-	
-	
-	@OneToMany(mappedBy = "city")
-	private List<Cinema> cinemas = new ArrayList<Cinema>();
+	@OneToMany(mappedBy = "category")
+	private List<Movie> movies = new ArrayList<Movie>();
 }
