@@ -24,11 +24,7 @@ public class Category implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@NotNull
-	@Size(min = 2)
+	@Id
 	private String name;
 	
 	@OneToMany(mappedBy = "category")

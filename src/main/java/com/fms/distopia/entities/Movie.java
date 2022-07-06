@@ -2,6 +2,7 @@ package com.fms.distopia.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -40,7 +42,7 @@ public class Movie implements Serializable {
 	private Long id;
 
 	@NotNull
-	@Size(min = 5)
+	@Size(min = 3)
 	private String title;
 
 	@NotNull
@@ -49,16 +51,15 @@ public class Movie implements Serializable {
 	
 	private String production;
 	
-	private Date releaseDate;
+	private LocalDate releaseDate;
 
-	@Basic
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date utilTimestamp;
+	private LocalTime duration;
 	
 	private String image;
 	
 	@ManyToOne
 	private Category category;
+	
 	
 	@ManyToMany(mappedBy = "movies", fetch =  FetchType.EAGER)
 	private List<Cinema> cinemas = new ArrayList<Cinema>();

@@ -33,8 +33,7 @@ public class City implements Serializable {
 	private String name;
 	
 	@NotNull
-	@Size(min = 5)
-	private Integer zip;
+	private Integer department;
 	
 	
 	@OneToMany(mappedBy = "city")
