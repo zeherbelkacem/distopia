@@ -19,4 +19,6 @@ public interface IMovieService {
 
 	public Movie saveMovie(Movie movie);
 
+	public Movie readMovieByTitle(String string);
+
 }

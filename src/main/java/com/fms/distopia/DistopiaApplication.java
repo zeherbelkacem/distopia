@@ -1,11 +1,5 @@
 package com.fms.distopia;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,18 +8,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.fms.distopia.entities.Address;
-import com.fms.distopia.entities.Category;
-import com.fms.distopia.entities.Cinema;
-import com.fms.distopia.entities.City;
-import com.fms.distopia.entities.Movie;
 import com.fms.distopia.repository.CategoryRepository;
 import com.fms.distopia.repository.CinemaRepository;
 import com.fms.distopia.repository.CityRepository;
 import com.fms.distopia.repository.CustomerRepository;
 import com.fms.distopia.repository.MovieRepository;
 import com.fms.distopia.security.RoleRepository;
-import com.fms.distopia.security.Uuser;
 import com.fms.distopia.security.UuserRepository;
 
 @SpringBootApplication

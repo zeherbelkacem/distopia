@@ -44,4 +44,9 @@ public class MovieServiceImpl implements IMovieService{
 		return movieRepository.save(movie);
 	}
 
+	@Override
+	public Movie readMovieByTitle(String string) {
+		return movieRepository.findByTitle(string);
+	}
+
 }

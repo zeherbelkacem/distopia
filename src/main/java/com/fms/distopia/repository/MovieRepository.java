@@ -14,4 +14,6 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 	@Query(value = "select * from movie m where m.title like %:keyword% or m.category_name like %:keyword%", nativeQuery = true)
 	Page<Movie> findByTitleContainsOrCategoryNameContains(@Param("keyword") String keyWord, Pageable pageable);
 
+	public Movie findByTitle(String string);
+
 }

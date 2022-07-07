@@ -125,9 +125,15 @@ public class AdminController {
 	 */
 	@GetMapping("/saveCinemaForm")
 	public String saveCinemaForm(Model model) {
+
+		List<String> moviesTitles = new ArrayList<String>();
+		movieService.readAllMovies().forEach(m -> {
+			moviesTitles.add(m.getTitle());
+		});
 		model.addAttribute("cities", cityService.readAllCities());
 		model.addAttribute("cinema", new Cinema());
 		model.addAttribute("address", new Address());
+		model.addAttribute("moviesTitles", moviesTitles);
 		return "saveNewCinema";
 	}
 
@@ -162,15 +168,21 @@ public class AdminController {
 	 */
 	@PostMapping("saveCinema")
 	public String saveCinema(@Valid Cinema cinema, @Valid Address address, Model model, BindingResult bindingResult,
-			RedirectAttributes redirectAttributes, @RequestParam("cityName") String cityName) {
+			RedirectAttributes redirectAttributes, @RequestParam("cityName") String cityName,
+			@RequestParam(value = "movieTitleArray", required = false) String[] movieTitleArray) {
 
 		if (bindingResult.hasErrors()) {
-			System.out.println(cinema.getId());
 			if (cinema.getId() != null) {
 				redirectAttributes.addAttribute("id", cinema.getId());
 				return "redirect:/updateCinemaForm";
 			} else
 				return "redirect:/saveCinemaForm";
+		}
+		if (movieTitleArray.length != 0) {
+			for (int i = 0; i < movieTitleArray.length; i++) {
+				cinema.getMovies().add(movieService.readMovieByTitle(movieTitleArray[i]));
+			}
+
 		}
 		cinema.setCity(cityService.getCityByName(cityName));
 		cinema.setAddress(address);
@@ -312,7 +324,7 @@ public class AdminController {
 		for (Category c : categoryService.readAllCategories()) {
 			categoriesNames.add(c.getName());
 		}
-		
+
 		model.addAttribute("categoriesNames", categoriesNames);
 		model.addAttribute("categories", categoryService.readAllCategories());
 		model.addAttribute("movie", movieService.readMovieById(id));

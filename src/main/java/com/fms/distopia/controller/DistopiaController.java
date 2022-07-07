@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.thymeleaf.util.ListUtils;
 
 import com.fms.distopia.entities.Cinema;
 import com.fms.distopia.entities.City;
@@ -43,7 +42,6 @@ public class DistopiaController {
 			@RequestParam(name = "size", defaultValue = "4") int size,
 			@RequestParam(name = "keyWord", defaultValue = "") String keyWord,
 			@RequestParam(name = "cinema_id", defaultValue = "") Long cinema_id) {
-		System.out.println(cinema_id);
 		Page<Movie> movies;
 
 		if (cinema_id != null) {
@@ -65,7 +63,7 @@ public class DistopiaController {
 		return "home";
 	}
 
-	@GetMapping("myCinema")
+	@GetMapping("/myCinema")
 	public String getMyCinema(Model model, @RequestParam(name = "keyWord", defaultValue = "") String keyWord,
 			@RequestParam(name = "page", defaultValue = "0") int page,
 			@RequestParam(name = "size", defaultValue = "4") int size) {
@@ -73,17 +71,20 @@ public class DistopiaController {
 		Page<Cinema> cinemas;
 		
 		List<Cinema> cinemas1 = cinemaService.readAllByPageAndKeyWord(keyWord, PageRequest.of(page, size)).getContent();
-		final List<City> city = cityService.readCityByName(keyWord);
+		List<City> city = cityService.readCityByName(keyWord);
 		List<Cinema> cinemas2 = new ArrayList<Cinema>(cinemas1);
-		city.forEach(cit->{
-			cinemas2.addAll(cit.getCinemas());
-		});
+		if (!city.isEmpty()) {
+			city.forEach(cit->{
+				cinemas2.addAll(cit.getCinemas());
+			});
 
+		}
+		
 		Pageable pageable = PageRequest.of(page, size);
 		final int start = (int) pageable.getOffset();
 		final int end = Math.min((start + pageable.getPageSize()), cinemas2.size());
 		cinemas = new PageImpl<>(cinemas2.subList(start, end), pageable, cinemas2.size());
-
+	
 		model.addAttribute("currentPage", page);
 		model.addAttribute("size", size);
 		model.addAttribute("pages", new int[cinemas.getTotalPages()]);
@@ -92,6 +93,24 @@ public class DistopiaController {
 		model.addAttribute("cinemas", cinemas);
 		model.addAttribute("cityName", "Toulouse");
 		return "showCinemas";
+	}
+	
+	@GetMapping("/myCinemaDisp")
+	public String getMyCinemaDisp(Model model, @RequestParam(name = "keyWord", defaultValue = "") String keyWord,
+			@RequestParam(name = "page", defaultValue = "0") int page,
+			@RequestParam(name = "size", defaultValue = "4") int size) {
+
+		Page<Cinema> cinemas = cinemaService.readAllByPageAndKeyWord(keyWord, PageRequest.of(page, size));
+		
+	
+		model.addAttribute("currentPage", page);
+		model.addAttribute("size", size);
+		model.addAttribute("pages", new int[cinemas.getTotalPages()]);
+		model.addAttribute("totalPages", cinemas.getTotalPages());
+		model.addAttribute("keyWord", keyWord);
+		model.addAttribute("cinemas", cinemas);
+		model.addAttribute("cityName", "Toulouse");
+		return "showCinemaDisp";
 	}
 	
 	@GetMapping("/myCity")

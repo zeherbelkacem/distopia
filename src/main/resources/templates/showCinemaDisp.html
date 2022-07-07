@@ -46,19 +46,19 @@
 
 					<li th:class="${currentPage==0 ? 'page-item disabled' : 'page-item'} ">
 						<a class="page-link"
-							th:href="@{ /myCinema(page=${currentPage-1}, size=${size}, keyWord=${keyWord} ) }">Previous</a>
+							th:href="@{ /myCinemaDisp(page=${currentPage-1}, size=${size}, keyWord=${keyWord} ) }">Previous</a>
 					</li>
 
 					<li th:each="page,status:${pages}"><a
 							th:class="${status.index==currentPage?'btn btn-primary':'btn'  }"
-							th:href="@{ /myCinema(page=${status.index}, size=${size}, keyWord=${keyWord}) }"
+							th:href="@{ /myCinemaDisp(page=${status.index}, size=${size}, keyWord=${keyWord}) }"
 							th:text="${status.index }"></a></li>
 
 					<li class="page-item"><a class="page-link"
-							th:href="@{ /myCinema(page=${currentPage+1}, size=${size}, keyWord=${keyWord} )}">Next</a>
+							th:href="@{ /myCinemaDisp(page=${currentPage+1}, size=${size}, keyWord=${keyWord} )}">Next</a>
 					</li>
 					<li class="page-item"><a class="page-link"
-							th:href="@{ /myCinema(page=${totalPages-1}, size=${size}, keyWord=${keyWord} )}">Last</a>
+							th:href="@{ /myCinemaDisp(page=${totalPages-1}, size=${size}, keyWord=${keyWord} )}">Last</a>
 
 					</li>
 				</ul>

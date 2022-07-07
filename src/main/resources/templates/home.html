@@ -11,6 +11,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
+
 <body class="bg-light">
 	<div class="container">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -87,13 +88,13 @@
 			</div>
 		</nav>
 		<section layout:fragment="sectionAdmin">
-			<nav class="navbar navbar-expand-lg navbar-dark bg-dark mt-5">
+			<nav class="navbar navbar-expand-lg navbar-dark bg-dark mt-5 mb-5">
 				<div class="container-fluid">
 
-					<div class="collapse navbar-collapse" id="navbarNavDropdown">
+					<div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
 						<ul class="navbar-nav">
 							<li class="nav-item">
-								<a class="nav-link active" aria-current="page" th:href="@{myCinema}">Cinemas</a>
+								<a class="nav-link active" aria-current="page" th:href="@{/myCinemaDisp}">Cinemas</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link active" th:href="@{/}">Movies</a>
@@ -102,7 +103,7 @@
 								<a class="nav-link active" th:href="@{/myCity}">Cities</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link active" href="#">coming soon</a>
+								<a class="nav-link active" href="#">Coming soon</a>
 							</li>
 
 						</ul>
@@ -131,7 +132,8 @@
 										<li class="list-group-item" th:text="'SYNOPSY : '+${m.description}"></li>
 										<li class="list-group-item" th:text="'PRODUCTION : '+${m.production}"></li>
 										<li class="list-group-item" th:text="'RELEASE DATE : '+${m.releaseDate}"></li>
-										<li class="list-group-item" th:text="'CLASSIFICATION : '+${m.category.name}"></li>
+										<li class="list-group-item" th:text="'CLASSIFICATION : '+${m.category.name}">
+										</li>
 										<li class="list-group-item" th:text="'DURATION: '+${m.duration}"></li>
 									</ul>
 								</div>
