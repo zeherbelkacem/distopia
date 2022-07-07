@@ -1,9 +1,6 @@
 package com.fms.distopia.entities;
 
 import javax.persistence.Embeddable;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -24,7 +21,7 @@ public class Address {
 
 	@NotNull
 	@Size(min = 3)
-	private String city;
+	private String town;
 	
 	private String codeZip;
 	

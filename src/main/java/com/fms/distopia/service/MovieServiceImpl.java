@@ -29,4 +29,9 @@ public class MovieServiceImpl implements IMovieService{
 		return movieRepository.findByTitleContainsOrCategoryNameContains(title, pageable);
 	}
 
+	@Override
+	public void deleteMovieById(Long id) {
+		movieRepository.deleteById(id);
+	}
+
 }

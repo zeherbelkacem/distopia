@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,9 +16,10 @@ import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
-@Data @AllArgsConstructor @NoArgsConstructor
+@Data @AllArgsConstructor @NoArgsConstructor @ToString
 public class City implements Serializable {
 
 	/**
@@ -36,6 +38,6 @@ public class City implements Serializable {
 	private Integer department;
 	
 	
-	@OneToMany(mappedBy = "city")
+	@OneToMany(mappedBy = "city", fetch = FetchType.EAGER)
 	private List<Cinema> cinemas = new ArrayList<Cinema>();
 }

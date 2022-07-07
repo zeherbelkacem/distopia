@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="home">
+
+<head>
+	<title>SHOP</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css} " />
+</head>
+
+</head>
+
+<body>
+	<div class="mt-5" layout:fragment="sectionAdmin">
+		<div class="card text-center">
+			<div class="card-header">
+				<h5 class="card-title">Add new article</h5>
+			</div>
+			<div class="card-body">
+
+				<form th:action="@{saveCinema}" method="post">
+					<div th:if="${cinema.getCity() != null}">
+						<div class="form-group">
+							<label class="control-label"></label>
+							<!--ID-->
+							<input type="hidden" class="form-control" name="id" th:value="${cinema.id}">
+							<span th:errors="${cinema.id}" class="text-danger"></span>
+						</div>
+					</div>
+					<div class="form-group mb-3">
+						<label class="control-label">Cinema name</label>
+						<input type="text" class="form-control" name="name" th:value="${cinema.name}">
+						<span th:errors="${cinema.name}" class="text-danger"></span>
+					</div>
+					<div class="form-group mb-3">
+						<label class="control-label">Address 1</label>
+						<input type="text" class="form-control" name="address1" th:value="${address.address1}">
+						<span th:errors="${address.address1}" class="text-danger"></span>
+					</div>
+					<div class="form-group mb-3">
+						<label class="control-label">Address 2</label>
+						<input type="text" class="form-control" name="address2" th:value="${address.address2}">
+						<span th:errors="${address.address2}" class="text-danger"></span>
+					</div>
+					<div class="form-group mb-3">
+						<label class="control-label">Zip code</label>
+						<input type="text" class="form-control" name="codeZip" value="France"
+							th:value="${address.codeZip}">
+						<span th:errors="${address.codeZip}" class="text-danger"></span>
+					</div>
+					<div class="form-group mb-3">
+						<label class="control-label">Address city</label>
+						<input type="text" class="form-control" name="town" th:value="${address.town}">
+						<span th:errors="${address.town}" class="text-danger"></span>
+					</div>
+					<div class="form-group mb-3">
+						<label class="control-label">Country</label>
+						<input type="text" class="form-control" name="country" th:value="${address.country}">
+						<span th:errors="${address.country}" class="text-danger"></span>
+					</div>
+
+					<div class="form-group mb-3">
+						<label class="control-label">City to be associated</label>
+						<select name="cityName" class="form-control  mb-3">
+							<div th:if="${cinema.getCity() != null}">
+								<option th:each="c : ${citiesNames}" th:value="${c}" th:text="${c}"
+									th:selected="${c==cinema.getCity().getName()}"></option>
+
+							</div>
+							<div th:if="${cinema.getCity() == null}">
+								<!-- for save cinema in controller -->
+								<option th:each="c : ${cities}" th:text="${c.name}"></option>
+							</div>
+
+						</select>
+					</div>
+
+
+					<button type="submit" class="btn btn-primary">Save</button>
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+
+	<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}">
+	</script>
+	<script th:src="@{/webjars/popper.js/2.9.2/umd/popper.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/5.0.1/js/bootstrap.min.js}"></script>
+</body>
+
+</html>

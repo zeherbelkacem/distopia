@@ -40,7 +40,7 @@ public class Cinema implements Serializable {
 	@Embedded
 	private Address address;
 
-	@ManyToOne
+	@ManyToOne()
 	private City city;
 	
 	@ManyToMany(fetch = FetchType.EAGER)

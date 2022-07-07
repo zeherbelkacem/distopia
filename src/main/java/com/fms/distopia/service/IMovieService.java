@@ -13,4 +13,6 @@ public interface IMovieService {
 
 	public Page<Movie> findByPagesAndByTitleAndClassification(String title, Pageable pageable);
 
+	public void deleteMovieById(Long id);
+
 }
