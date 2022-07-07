@@ -15,4 +15,8 @@ public interface IMovieService {
 
 	public void deleteMovieById(Long id);
 
+	public Movie readMovieById(Long id);
+
+	public Movie saveMovie(Movie movie);
+
 }

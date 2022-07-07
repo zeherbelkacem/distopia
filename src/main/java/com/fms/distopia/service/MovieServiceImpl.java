@@ -2,6 +2,8 @@ package com.fms.distopia.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -32,6 +34,16 @@ public class MovieServiceImpl implements IMovieService{
 	@Override
 	public void deleteMovieById(Long id) {
 		movieRepository.deleteById(id);
+	}
+
+	@Override
+	public Movie readMovieById(Long id) {
+		return movieRepository.findById(id).get();
+	}
+
+	@Override
+	public Movie saveMovie(Movie movie) {
+		return movieRepository.save(movie);
 	}
 
 }

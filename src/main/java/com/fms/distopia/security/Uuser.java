@@ -1,10 +1,13 @@
 package com.fms.distopia.security;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,13 +46,13 @@ public class Uuser implements Serializable {
 	@NotNull
 	@Size(min = 4)
 	private String password;
-	
+
 	private Boolean active;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "userId"), inverseJoinColumns = @JoinColumn(name = "roleId"))
-	private List<Role> roles;
-	
+	private List<Role> roles = new ArrayList<>();
+
 	@OneToMany(mappedBy = "uuser")
 	private List<Customer> customers;
 

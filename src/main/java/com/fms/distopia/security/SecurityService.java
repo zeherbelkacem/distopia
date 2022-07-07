@@ -1,5 +1,6 @@
 package com.fms.distopia.security;
 
+
 public interface SecurityService {
 
 	/**
@@ -9,4 +10,7 @@ public interface SecurityService {
 	 */
 	public Uuser findUuserByUserName(String username);
 
+	public Uuser saveUuser(Uuser user);
+
+	public Role getRoleByRoleName(String string);
 }

@@ -1,5 +1,7 @@
 package com.fms.distopia.service;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
@@ -16,5 +18,7 @@ public interface ICategoryService {
 	public Category readByName(String id);
 
 	void saveCategory(Category category);
+
+	public List<Category> readAllCategories();
 
 }

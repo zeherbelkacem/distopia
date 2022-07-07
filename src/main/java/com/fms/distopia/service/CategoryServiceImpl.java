@@ -1,5 +1,7 @@
 package com.fms.distopia.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -34,6 +36,11 @@ public class CategoryServiceImpl implements ICategoryService{
 	@Override
 	public void saveCategory(Category category) {
 		categoryRepository.save(category);
+	}
+
+	@Override
+	public List<Category> readAllCategories() {
+		return categoryRepository.findAll();
 	}
 
 }

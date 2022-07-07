@@ -24,11 +24,11 @@
 					<div class="card-body">
 						<ul class="list-group list-group-flush">
 							<li class="list-group-item h3" th:text="${m.title}"></li>
-							<li class="list-group-item" th:text="${m.description}"></li>
-							<li class="list-group-item" th:text="${m.production}"></li>
-							<li class="list-group-item" th:text="${m.releaseDate}"></li>
-							<li class="list-group-item" th:text="${m.category.name}"></li>
-							<li class="list-group-item" th:text="${m.duration}"></li>
+							<li class="list-group-item" th:text="'SYNOPSY : '+${m.description}"></li>
+							<li class="list-group-item" th:text="'PRODUCTION : '+${m.production}"></li>
+							<li class="list-group-item" th:text="'RELEASE DATE : '+${m.releaseDate}"></li>
+							<li class="list-group-item" th:text="'CLASSIFICATION : '+${m.category.name}"></li>
+							<li class="list-group-item" th:text="'DURATION: '+${m.duration}"></li>
 						</ul>
 					</div>
 					<div class="card-body ">

@@ -68,7 +68,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
 				Uuser uuser = securityService.findUuserByUserName(username);
-
 				List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
 				uuser.getRoles().forEach(r -> {
 					GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_" + r.getRole());
@@ -86,9 +85,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //		http.formLogin();
 		http.formLogin().loginPage("/login");
 		// http.authorizeHttpRequests().anyRequest().authenticated();
-		//http.authorizeHttpRequests().antMatchers("/admin/**/**").hasRole("ADMIN");
-		http.authorizeHttpRequests().antMatchers("/myCustomers/**/**").authenticated();
-		http.authorizeHttpRequests().antMatchers("/shop/**/**").permitAll();
+		http.authorizeHttpRequests().antMatchers("/admin/**/**").hasRole("ADMIN");
+		//http.authorizeHttpRequests().antMatchers("/myCustomers/**/**").authenticated();
+		http.authorizeHttpRequests().antMatchers("/distopia/**/**").permitAll();
 	
 		http.exceptionHandling().accessDeniedPage("/accessDenied");
 	}

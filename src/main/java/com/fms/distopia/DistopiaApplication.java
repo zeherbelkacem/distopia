@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,31 +25,30 @@ import com.fms.distopia.repository.CityRepository;
 import com.fms.distopia.repository.CustomerRepository;
 import com.fms.distopia.repository.MovieRepository;
 import com.fms.distopia.security.RoleRepository;
+import com.fms.distopia.security.Uuser;
 import com.fms.distopia.security.UuserRepository;
 
 @SpringBootApplication
 public class DistopiaApplication implements CommandLineRunner {
 
+	@Autowired
 	private CategoryRepository categoryRepository;
+	@Autowired
 	private MovieRepository movieRepository;
+	@Autowired
 	private CinemaRepository cinemaRepository;
+	@Autowired
 	private CityRepository cityRepository;
+	@Autowired
 	private RoleRepository roleRepository;
+	@Autowired
 	private UuserRepository uuserRepository;
+	@Autowired
 	private CustomerRepository customerRepository;
-//	private PasswordEncoder encoder;
+	@Autowired
+	private PasswordEncoder encoder;
 
-	public DistopiaApplication(CategoryRepository categoryRepository, MovieRepository movieRepository,
-			CinemaRepository cinemaRepository, CityRepository cityRepository, RoleRepository roleRepository,
-			UuserRepository uuserRepository, CustomerRepository customerRepository) {
-		this.categoryRepository = categoryRepository;
-		this.movieRepository = movieRepository;
-		this.cinemaRepository = cinemaRepository;
-		this.cityRepository = cityRepository;
-		this.roleRepository = roleRepository;
-		this.uuserRepository = uuserRepository;
-		this.customerRepository = customerRepository;
-	}
+	
 
 	public static void main(String[] args) {
 		SpringApplication.run(DistopiaApplication.class, args);
@@ -62,6 +62,7 @@ public class DistopiaApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
+		
 		/*********** Movies categories ***********/
 //		Category asian = new Category("ASIAN", null);
 //		Category kids = new Category("KIDS", null);

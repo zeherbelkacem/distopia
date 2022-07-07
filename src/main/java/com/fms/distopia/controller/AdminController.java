@@ -27,7 +27,6 @@ import com.fms.distopia.service.ICinemaService;
 import com.fms.distopia.service.ICityService;
 import com.fms.distopia.service.IMovieService;
 
-
 /**
  * 
  * @author Stagiaires11P
@@ -45,7 +44,7 @@ public class AdminController {
 	private IMovieService movieService;
 	@Autowired
 	private ICategoryService categoryService;
-	
+
 	/**
 	 * 
 	 * @param model
@@ -95,7 +94,7 @@ public class AdminController {
 		model.addAttribute("cinemas", cinemas.getContent());
 		return "cinemas";
 	}
-	
+
 	/**
 	 * 
 	 * @param model
@@ -131,7 +130,7 @@ public class AdminController {
 		model.addAttribute("address", new Address());
 		return "saveNewCinema";
 	}
-	
+
 	/**
 	 * 
 	 * @param id
@@ -162,9 +161,9 @@ public class AdminController {
 	 * @return
 	 */
 	@PostMapping("saveCinema")
-	public String saveCinema(@Valid Cinema cinema, @Valid Address address, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes,
-			@RequestParam("cityName") String cityName) {
-		
+	public String saveCinema(@Valid Cinema cinema, @Valid Address address, Model model, BindingResult bindingResult,
+			RedirectAttributes redirectAttributes, @RequestParam("cityName") String cityName) {
+
 		if (bindingResult.hasErrors()) {
 			System.out.println(cinema.getId());
 			if (cinema.getId() != null) {
@@ -178,7 +177,7 @@ public class AdminController {
 		cinemaService.saveCinema(cinema);
 		return "redirect:/cinemas";
 	}
-	
+
 	/**
 	 * 
 	 * @param model
@@ -190,7 +189,7 @@ public class AdminController {
 //		model.addAttribute("cinemas", cinemaService.readAll());
 		return "saveNewCity";
 	}
-	
+
 	/**
 	 * 
 	 * @param id
@@ -199,11 +198,11 @@ public class AdminController {
 	 */
 	@GetMapping("admin/updateCityForm")
 	public String updateCityForm(@RequestParam(name = "id", defaultValue = "") Long id, Model model) {
-		
+
 		model.addAttribute("city", cityService.readCityById(id));
 		return "saveNewCity";
 	}
-	
+
 	/**
 	 * 
 	 * @param city
@@ -213,8 +212,9 @@ public class AdminController {
 	 * @return
 	 */
 	@PostMapping("admin/saveCity")
-	public String saveCity(@Valid City city, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-		
+	public String saveCity(@Valid City city, Model model, BindingResult bindingResult,
+			RedirectAttributes redirectAttributes) {
+
 		if (bindingResult.hasErrors()) {
 			System.out.println(city.getId());
 			if (city.getId() != null) {
@@ -226,7 +226,7 @@ public class AdminController {
 		cityService.saveCity(city);
 		return "redirect:/admin";
 	}
-	
+
 	@RequestMapping("/movies")
 	public String adminMovies(Model model, @RequestParam(name = "id", defaultValue = "") Long id,
 			@RequestParam(name = "page", defaultValue = "0") int page,
@@ -243,14 +243,13 @@ public class AdminController {
 		model.addAttribute("movies", movies.getContent());
 		return "movies";
 	}
-	
-	
+
 	@GetMapping("/saveCategoryForm")
 	public String saveCategoryForm(Model model) {
 		model.addAttribute("category", new Category());
 		return "saveNewCategory";
 	}
-	
+
 	/**
 	 * 
 	 * @param id
@@ -259,11 +258,11 @@ public class AdminController {
 	 */
 	@GetMapping("updateCategoryForm")
 	public String updateCategoryForm(@RequestParam(name = "name") String name, Model model) {
-		
+
 		model.addAttribute("category", categoryService.readByName(name));
 		return "saveNewCategory";
 	}
-	
+
 	/**
 	 * 
 	 * @param city
@@ -273,7 +272,8 @@ public class AdminController {
 	 * @return
 	 */
 	@PostMapping("saveCategory")
-	public String saveCategory(@Valid Category category, Model model, BindingResult bindingResult, @RequestParam(name = "nameToUpdate") String nameToUpdate, RedirectAttributes redirectAttributes) {
+	public String saveCategory(@Valid Category category, Model model, BindingResult bindingResult,
+			@RequestParam(name = "nameToUpdate") String nameToUpdate, RedirectAttributes redirectAttributes) {
 		System.out.println(nameToUpdate);
 		if (bindingResult.hasErrors()) {
 			System.out.println(category.getName());
@@ -287,7 +287,65 @@ public class AdminController {
 		categoryService.saveCategory(category);
 		return "redirect:/classification";
 	}
-	
-	
+
+	/**
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/saveMovieForm")
+	public String saveMovieForm(Model model) {
+		model.addAttribute("categories", categoryService.readAllCategories());
+		model.addAttribute("movie", new Movie());
+		return "saveNewMovie";
+	}
+
+	/**
+	 * 
+	 * @param id
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/updateMovieForm")
+	public String updateMovieForm(@RequestParam(name = "id", defaultValue = "") Long id, Model model) {
+		List<String> categoriesNames = new ArrayList<String>();
+		for (Category c : categoryService.readAllCategories()) {
+			categoriesNames.add(c.getName());
+		}
+		
+		model.addAttribute("categoriesNames", categoriesNames);
+		model.addAttribute("categories", categoryService.readAllCategories());
+		model.addAttribute("movie", movieService.readMovieById(id));
+		return "saveNewMovie";
+	}
+
+	/**
+	 * 
+	 * @param movie
+	 * @param model
+	 * @param bindingResult
+	 * @param redirectAttributes
+	 * @param catName
+	 * @param fileName
+	 * @param duration
+	 * @return
+	 */
+	@PostMapping("saveMovie")
+	public String saveMovie(@Valid Movie movie, Model model, BindingResult bindingResult,
+			RedirectAttributes redirectAttributes, @RequestParam("catName") String catName,
+			@RequestParam("fileName") String fileName, @RequestParam("duration") String duration) {
+
+		if (bindingResult.hasErrors()) {
+			if (movie.getId() != null) {
+				redirectAttributes.addAttribute("id", movie.getId());
+				return "redirect:/updateMovieForm";
+			} else
+				return "redirect:/saveMovieForm";
+		}
+		movie.setCategory(categoryService.readByName(catName));
+		movie.setImage("img/" + fileName);
+		movieService.saveMovie(movie);
+		return "redirect:/movies";
+	}
 
 }
