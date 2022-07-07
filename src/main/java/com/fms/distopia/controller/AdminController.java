@@ -54,7 +54,7 @@ public class AdminController {
 	 * @return
 	 */
 	@GetMapping("admin")
-	public String articleList(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
+	public String citiesList(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
 			@RequestParam(name = "size", defaultValue = "5") int size,
 			@RequestParam(name = "id", defaultValue = "") Long id) {
 

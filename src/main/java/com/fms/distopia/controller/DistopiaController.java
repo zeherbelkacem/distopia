@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.util.ListUtils;
 
 import com.fms.distopia.entities.Cinema;
@@ -51,9 +52,10 @@ public class DistopiaController {
 			final int start = (int) pageable.getOffset();
 			final int end = Math.min((start + pageable.getPageSize()), moviesList.size());
 			movies = new PageImpl<>(moviesList.subList(start, end), pageable, moviesList.size());
+		}else {
+			movies = movieService.findByPagesAndByTitleAndClassification(keyWord, PageRequest.of(page, size));
 		}
-		movies = movieService.findByPagesAndByTitleAndClassification(keyWord, PageRequest.of(page, size));
-//		System.out.println(movies.getContent().get(1).getCinemas());
+//		movies = movieService.findByPagesAndByTitleAndClassification(keyWord, PageRequest.of(page, size));
 		model.addAttribute("currentPage", page);
 		model.addAttribute("size", size);
 		model.addAttribute("pages", new int[movies.getTotalPages()]);
@@ -91,5 +93,24 @@ public class DistopiaController {
 		model.addAttribute("cityName", "Toulouse");
 		return "showCinemas";
 	}
+	
+	@GetMapping("/myCity")
+	public String getMyCity(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
+			@RequestParam(name = "size", defaultValue = "5") int size,
+			@RequestParam(name = "id", defaultValue = "") Long id, RedirectAttributes attributes) {
+		if(id!=null) {
+			attributes.addAttribute("keyWord", cityService.readCityById(id).getName());
+			return "redirect:myCinema";
+		}
+		
+		Page<City> cities = cityService.findByPageByPage(PageRequest.of(page, size));
+		model.addAttribute("currentPage", page);
+		model.addAttribute("size", size);
+		model.addAttribute("pages", new int[cities.getTotalPages()]);
+		model.addAttribute("totalPages", cities.getTotalPages());
+		model.addAttribute("cities", cities.getContent());
+		return "showCities";
+	}
+
 
 }
