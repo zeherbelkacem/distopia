@@ -36,15 +36,18 @@ public class SecurityServiceImpl implements SecurityService{
 	public Uuser saveUuser(Uuser user) {
 		
 		//Creation
-		if(uuserRepository.findById(user.getUserId()).isEmpty()) {
-//			if (uuserRepository.findByUserName(user.getUserName()) != null) {
-//				throw new NotFoundEntityException("User with the sme userName exists");
-//			}
-			String pwdEncoder = passwordEncoder.encode(user.getPassword());
-			user.setPassword(pwdEncoder);
-			return uuserRepository.save(user);
-		}
+//		if(uuserRepository.findById(user.getUserId()).isEmpty()) {
+////			if (uuserRepository.findByUserName(user.getUserName()) != null) {
+////				throw new NotFoundEntityException("User with the sme userName exists");
+////			}
+//			String pwdEncoder = passwordEncoder.encode(user.getPassword());
+//			user.setPassword(pwdEncoder);
+//			return uuserRepository.save(user);
+//		}
 		//Updating
+		//return uuserRepository.save(user);
+		String pwdEncoder = passwordEncoder.encode(user.getPassword());
+		user.setPassword(pwdEncoder);
 		return uuserRepository.save(user);
 	}
 	

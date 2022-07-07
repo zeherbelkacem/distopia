@@ -43,7 +43,7 @@ public class SecurityController {
 
 	
 
-	@GetMapping("registerUser")
+	@GetMapping("/registerUser")
 	public String register(Model model) {
 		model.addAttribute("user", new Uuser());
 		return "register";
@@ -51,7 +51,6 @@ public class SecurityController {
 
 	@PostMapping("registration")
 	public String registration(@Valid Uuser user, BindingResult bindingResult, Model model) {
-
 		if (bindingResult.hasErrors()) {
 //			model.addAttribute("user", user);
 			return "redirect:registerUser";
