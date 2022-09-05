@@ -11,8 +11,18 @@ import com.fms.distopia.entities.City;
 @Repository
 public interface CityRepository extends JpaRepository<City, Long> {
 
+	/**
+	 * 
+	 * @param keyWord
+	 * @return
+	 */
 	List<City> findByNameContains(String keyWord);
 
+	/**
+	 * 
+	 * @param cityName
+	 * @return
+	 */
 	City findByName(String cityName);
 
 }

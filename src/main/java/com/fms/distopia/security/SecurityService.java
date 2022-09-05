@@ -10,7 +10,17 @@ public interface SecurityService {
 	 */
 	public Uuser findUuserByUserName(String username);
 
+	/**
+	 * 
+	 * @param user
+	 * @return
+	 */
 	public Uuser saveUuser(Uuser user);
 
+	/**
+	 * 
+	 * @param string
+	 * @return
+	 */
 	public Role getRoleByRoleName(String string);
 }

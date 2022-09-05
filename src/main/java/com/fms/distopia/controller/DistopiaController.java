@@ -1,6 +1,5 @@
 package com.fms.distopia.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -37,6 +36,15 @@ public class DistopiaController {
 		this.cityService = cityService;
 	}
 
+	/**
+	 * 
+	 * @param model
+	 * @param page
+	 * @param size
+	 * @param keyWord
+	 * @param cinema_id
+	 * @return
+	 */
 	@GetMapping("")
 	public String home(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
 			@RequestParam(name = "size", defaultValue = "4") int size,
@@ -63,26 +71,30 @@ public class DistopiaController {
 		return "home";
 	}
 
+	/**
+	 * 
+	 * @param model
+	 * @param keyWord
+	 * @param page
+	 * @param size
+	 * @return
+	 */
 	@GetMapping("/myCinema")
 	public String getMyCinema(Model model, @RequestParam(name = "keyWord", defaultValue = "") String keyWord,
+			@RequestParam(name = "cityId", defaultValue = "") Long cityId,
 			@RequestParam(name = "page", defaultValue = "0") int page,
 			@RequestParam(name = "size", defaultValue = "4") int size) {
 
-		Page<Cinema> cinemas = cinemaService.readAllByPageAndKeyWord(keyWord, PageRequest.of(page, size));
-
-	//	List<Cinema> cinemas1 = cinemaService.readAll();
-		// cinemaService.readAllByPageAndKeyWord(keyWord, PageRequest.of(page,
-		// size)).getContent();
-//		List<City> city = cityService.readCityByName(keyWord);
-//		List<Cinema> cinemas2 = new ArrayList<Cinema>(cinemas1);
-//		city.forEach(cit -> {
-//			cinemas2.add(cit.getCinemas());
-//		});
-//
-//		Pageable pageable = PageRequest.of(page, size);
-//		final int start = (int) pageable.getOffset();
-//		final int end = Math.min((start + pageable.getPageSize()), cinemas2.size());
-//		cinemas = new PageImpl<>(cinemas2.subList(start, end), pageable, cinemas2.size());
+		Page<Cinema> cinemas;
+		if (cityId != null) {
+			List<Cinema> cinemaList = cityService.readCityById(cityId).getCinemas();
+			System.out.println(cinemaList.size());
+			Pageable pageable = PageRequest.of(page, size);
+			final int start = (int) pageable.getOffset();
+			final int end = Math.min((start + pageable.getPageSize()), cinemaList.size());
+			cinemas = new PageImpl<>(cinemaList.subList(start, end), pageable, cinemaList.size());
+		} else
+			cinemas = cinemaService.readAllByPageAndKeyWord(keyWord, PageRequest.of(page, size));
 
 		model.addAttribute("currentPage", page);
 		model.addAttribute("size", size);
@@ -94,12 +106,21 @@ public class DistopiaController {
 		return "showCinemas";
 	}
 
+	/**
+	 * 
+	 * @param model
+	 * @param keyWord
+	 * @param page
+	 * @param size
+	 * @return
+	 */
 	@GetMapping("/myCinemaDisp")
 	public String getMyCinemaDisp(Model model, @RequestParam(name = "keyWord", defaultValue = "") String keyWord,
 			@RequestParam(name = "page", defaultValue = "0") int page,
 			@RequestParam(name = "size", defaultValue = "4") int size) {
 
-		Page<Cinema> cinemas = cinemaService.readAllByPageAndKeyWord(keyWord, PageRequest.of(page, size));
+		Page<Cinema> cinemas;
+		cinemas = cinemaService.readAllByPageAndKeyWord(keyWord, PageRequest.of(page, size));
 
 		model.addAttribute("currentPage", page);
 		model.addAttribute("size", size);
@@ -111,12 +132,21 @@ public class DistopiaController {
 		return "showCinemaDisp";
 	}
 
+	/**
+	 * 
+	 * @param model
+	 * @param page
+	 * @param size
+	 * @param id
+	 * @param attributes
+	 * @return
+	 */
 	@GetMapping("/myCity")
 	public String getMyCity(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
 			@RequestParam(name = "size", defaultValue = "5") int size,
 			@RequestParam(name = "id", defaultValue = "") Long id, RedirectAttributes attributes) {
 		if (id != null) {
-			attributes.addAttribute("keyWord", cityService.readCityById(id).getName());
+			attributes.addAttribute("cityId", id);
 			return "redirect:myCinema";
 		}
 

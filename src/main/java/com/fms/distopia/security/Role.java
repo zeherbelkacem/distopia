@@ -15,6 +15,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
+/**
+ * 
+ * @author Stagiaires11P
+ *
+ */
+
 @Entity
 @Data
 @NoArgsConstructor

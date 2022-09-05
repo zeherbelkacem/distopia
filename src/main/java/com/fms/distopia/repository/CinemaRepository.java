@@ -10,6 +10,12 @@ import com.fms.distopia.entities.Cinema;
 @Repository
 public interface CinemaRepository extends JpaRepository<Cinema, Long> {
 
+	/**
+	 * 
+	 * @param keyWord
+	 * @param pageable
+	 * @return
+	 */
 	Page<Cinema> findByNameContains(String keyWord, Pageable pageable);
 
 }

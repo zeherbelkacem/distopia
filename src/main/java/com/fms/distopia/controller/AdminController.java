@@ -239,6 +239,15 @@ public class AdminController {
 		return "redirect:/admin";
 	}
 
+	/**
+	 * 
+	 * @param model
+	 * @param id
+	 * @param page
+	 * @param size
+	 * @param keyWord
+	 * @return
+	 */
 	@RequestMapping("/movies")
 	public String adminMovies(Model model, @RequestParam(name = "id", defaultValue = "") Long id,
 			@RequestParam(name = "page", defaultValue = "0") int page,
@@ -256,6 +265,11 @@ public class AdminController {
 		return "movies";
 	}
 
+	/**
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/saveCategoryForm")
 	public String saveCategoryForm(Model model) {
 		model.addAttribute("category", new Category());

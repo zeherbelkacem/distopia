@@ -16,6 +16,21 @@ import com.fms.distopia.repository.MovieRepository;
 import com.fms.distopia.security.RoleRepository;
 import com.fms.distopia.security.UuserRepository;
 
+/**
+ * 
+ * - gestion d'un parc de cinémas : Distopia C’est une appli simple de gestion
+ * de cinémas un peu partout en France. L’administrateur doit pouvoir
+ * ajouter/modifier une ou plusieurs villes, les cinémas associés et un certain
+ * nombre de film à l’affiche. L’utilisateur non connecté peut afficher tous les
+ * cinémas d’une ville ou rechercher un cinéma par mot clé. Un cinéma est
+ * caractérisé par : nom, adresse
+ * 
+ * 
+ * 
+ * @author Stagiaires11P
+ *
+ */
+
 @SpringBootApplication
 public class DistopiaApplication implements CommandLineRunner {
 
@@ -36,8 +51,6 @@ public class DistopiaApplication implements CommandLineRunner {
 	@Autowired
 	private PasswordEncoder encoder;
 
-	
-
 	public static void main(String[] args) {
 		SpringApplication.run(DistopiaApplication.class, args);
 	}
@@ -50,7 +63,6 @@ public class DistopiaApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		
 		/*********** Movies categories ***********/
 //		Category asian = new Category("ASIAN", null);
 //		Category kids = new Category("KIDS", null);

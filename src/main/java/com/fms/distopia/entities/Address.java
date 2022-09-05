@@ -8,10 +8,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * 
+ * @author Stagiaires11P
+ *
+ */
+
 @Data @NoArgsConstructor @AllArgsConstructor
 @Embeddable
 public class Address {
-	
 	
 	@NotNull
 	@Size(min = 4)

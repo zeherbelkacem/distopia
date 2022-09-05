@@ -18,6 +18,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+/**
+ * 
+ * @author Stagiaires11P
+ *
+ */
+
+
 @Entity
 @Data @AllArgsConstructor @NoArgsConstructor @ToString
 public class City implements Serializable {
